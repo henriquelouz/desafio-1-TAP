@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math"
+	"runtime"
 	"sort"
 	"strconv"
 )
@@ -89,5 +91,13 @@ func forcaBrutaRecursivo(competidores []competidor, k, i, esforco, combinacoes, 
 	// }
 	// fmt.Println()
 
+	// printMemUsage()
+
 	return forcaBrutaRecursivo(competidores, k, i+1, esforco, combinacoes, total)
+}
+
+func printMemUsage() {
+	var m runtime.MemStats
+	runtime.ReadMemStats(&m)
+	log.Printf("\nAlloc = %v\tTotalAlloc = %v\tSys = %v\tNumGC = %v\n\n", m.Alloc/1024, m.TotalAlloc/1024, m.Sys/1024, m.NumGC)
 }

@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math"
+	"runtime"
 	"sort"
 	"strconv"
 )
@@ -26,10 +28,11 @@ func main() {
 	}
 
 	// DEBUG
-	// k = 1
-	// competidores = []competidor{
-	// 	competidor{3, 2, false},
-	// 	competidor{4, 0, false},
+	// k := 2
+	// competidores := []competidor{
+	// 	competidor{1, 1, false},
+	// 	competidor{1, 4, false},
+	// 	competidor{2, 2, false},
 	// }
 
 	// fmt.Printf("Para se classificar, Sor Ducan deve se classificar entre os %d primeiros.\n", k)
@@ -79,13 +82,21 @@ func forcaBrutaIterativo(competidores []competidor, k int) int {
 
 		// fmt.Printf("%s - Pontos: %d Esforço: %d\n", binario, pontosTotal, esforcoTotal)
 		// for i, cs := range competidoresSituacao {
-		// 	fmt.Printf("%dº Lugar - %d %t\t", i, cs.pontos, cs.vencido)
+		// 	fmt.Printf("%dº Lugar - %d %t\t", i+1, cs.pontos, cs.vencido)
 		// }
 		// fmt.Println()
+
+		// printMemUsage()
 	}
 
 	if esforco == math.MaxInt32 {
 		return -1
 	}
 	return esforco
+}
+
+func printMemUsage() {
+	var m runtime.MemStats
+	runtime.ReadMemStats(&m)
+	log.Printf("\nAlloc = %v\tTotalAlloc = %v\tSys = %v\tNumGC = %v\n\n", m.Alloc/1024, m.TotalAlloc/1024, m.Sys/1024, m.NumGC)
 }
